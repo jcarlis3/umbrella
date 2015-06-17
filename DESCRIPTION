@@ -1,10 +1,20 @@
 Package: umbrella
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Evaluating Conservation Reserves
 Version: 0.1
 Date: 2015-06-17
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R:  as.person(c(
+    "Jason D. Carlisle <jason.d.carlisle@gmail.com> [aut, cre]",
+    "Shannon Albeke [ctb]",
+    "Douglas Keinath [ctb]"
+    ))
+Maintainer: Jason D. Carlisle <jason.d.carlisle@gmail.com>
+Description: Utilites for evaulating the effectiveness of conservation reserves,
+    specifically those created for umbrella species.
+Imports:
+    sp,
+    rgdal,
+    rgeos,
+    raster
+License: GPL-3
 LazyData: TRUE
