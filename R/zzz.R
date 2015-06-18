@@ -5,6 +5,6 @@
 
   # Startup message
   packageStartupMessage(paste("umbrella (version ", v ,")", sep=""))
-  packageStartupMessage("GitHub version of package\nJason D. Carlisle <jason.d.carlisle@gmail.com>")
+  # packageStartupMessage("GitHub version of package\nJason D. Carlisle <jason.d.carlisle@gmail.com>")
 
 }
