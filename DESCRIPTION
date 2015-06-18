@@ -11,6 +11,7 @@ Authors@R:  as.person(c(
 Maintainer: Jason D. Carlisle <jason.d.carlisle@gmail.com>
 Description: Utilites for evaulating the effectiveness of conservation reserves,
     specifically those created for umbrella species.
+Depends: R (>= 2.10)
 Imports:
     sp,
     rgdal,
