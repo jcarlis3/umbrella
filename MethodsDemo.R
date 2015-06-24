@@ -2,7 +2,7 @@
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
-# Last updated 6/18/2015
+# Last updated 6/24/2015
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -24,24 +24,41 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # 1) REQUIRED PACKAGES ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# This demo was tested using R version 3.2.0 and Windows 8.1 Pro
-# This demo requires the following packages for handling of spatial data and was tested using the following versions
-require(sp)      # version 1.1-1
-require(rgdal)   # version 0.9-3
-require(rgeos)   # version 0.3-11
-require(raster)  # version 2.3-40
+# This demo was tested using R version 3.2.1 and Windows 8.1 Pro.
+# This demo requires the sp, rgdal, rgeos, and raster packages for handling spatial data and the umbrella package for
+    # two custom functions and three example datasets created specifically for this demo.  As of publication, the
+    # umbrella package is not on CRAN, but can be installed from a GitHub repository, which will require using the
+    # devtools package.  The umbrella package may be further developed after publication, but this demo is current and
+    # compatible with umbrella version 0.1.
+    # Bug reports or suggestions for the umbrella package should be directed to <jason.d.carlisle@gmail.com>.
 
-# Two custom functions and three example datasets are also required for this demo, and these can be installed as
-    # the 'umbrella' package created to accompany this demo.  The umbrella package is not currently on CRAN, but can be
-    # installed from a GitHub repository (requires the devtools package).  The umbrella package may be further developed
-    # after publication, but this demo is current and compatible with umbrella version 0.1.
+# This demo was tested using the following package versions:
+    # sp       version 1.1-1
+    # rgdal    version 1.0-4
+    # rgeos    version 0.3-11
+    # raster   version 2.3-40
+    # devtools version 1.8-0
+    # umbrella version 0.1
 
-# Bug reports or suggestions for the umbrella package should be directed to jason.d.carlisle@gmail.com
+# This block of code will install the required packages from CRAN if they are not already installed on your machine
+if(!require(sp)){install.packages("sp")}
+if(!require(rgdal)){install.packages("rgdal")}
+if(!require(rgeos)){install.packages("rgeos")}
+if(!require(raster)){install.packages("raster")}
+if(!require(devtools)){install.packages("devtools")}
 
-# Install umbrella package from a GitHub repository (requires devtools package) and load
+# Once installed, load the required packages
+require(sp)
+require(rgdal)
+require(rgeos)
+require(raster)
 require(devtools)
-devtools::install_github("jcarlis3/umbrella@master")
-require(umbrella)  # version 0.1
+
+
+# Now, install the umbrella package from a GitHub repository (requires devtools package) and load
+if(!require(umbrella)){devtools::install_github("jcarlis3/umbrella@master")}
+require(umbrella)
+
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -52,7 +69,7 @@ require(umbrella)  # version 0.1
 # Read in example data from the umbrella package
     # demo.sdm:  an example species distribution model (SDM) where 1 = suitable habitat and 0 = not suitable habitat
     # demo.rsv:  an example reserve created for an umbrella species
-    # demo.msk:  an example availabilty mask (i.e., the polygon within which simulated reserves can be placed)
+    # demo.msk:  an example availability mask (i.e., the polygon within which simulated reserves can be placed)
 
 data(demo.sdm)
 data(demo.rsv)
@@ -70,7 +87,7 @@ plot(demo.msk, add=TRUE, lwd=3)
 # 3) CALCULATE OVERLAP STATISTIC ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # Calculate the total number of suitable cells (coded as "1") in the SDM
-(suit.total <- cellStats(demo.sdm, sum))
+(suit.total <- raster::cellStats(demo.sdm, sum))
 
 # Calculate the number of suitable cells contained within the reserve
 # Issue ?sumRaster to view help documentation for custom sumRaster function
@@ -162,5 +179,5 @@ print(results.df)
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# End of demo
+# END
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
