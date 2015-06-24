@@ -54,7 +54,6 @@ require(rgeos)
 require(raster)
 require(devtools)
 
-
 # Now, install the umbrella package from a GitHub repository (requires devtools package) and load
 if(!require(umbrella)){devtools::install_github("jcarlis3/umbrella@master")}
 require(umbrella)
