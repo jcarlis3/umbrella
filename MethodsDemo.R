@@ -12,8 +12,8 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # This code is provided as a supplement to (citation) and demonstrates some of the methods used therein.
 # This script contains the following five sections:
-    # 1) REQUIRED PACKAGES
-    # 2) INPUT DATA
+    # 1) INSTALL REQUIRED PACKAGES
+    # 2) READ INPUT DATA
     # 3) CALCULATE OVERLAP STATISTIC
     # 4) SIMULATE RESERVES AND PERFORM MONTE CARLO TEST
     # 5) INTERPRET THE RESULTS
@@ -22,7 +22,7 @@
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# 1) REQUIRED PACKAGES ----------
+# 1) INSTALL REQUIRED PACKAGES ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # This demo was tested using R version 3.2.1 and Windows 8.1 Pro.
 # This demo requires the sp, rgdal, rgeos, and raster packages for handling spatial data and the umbrella package for
@@ -58,13 +58,12 @@ require(devtools)
 # Now, install the umbrella package from a GitHub repository (requires devtools package) and load
 if(!require(umbrella)){devtools::install_github("jcarlis3/umbrella@master")}
 require(umbrella)
-
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# 2) INPUT DATA ----------
+# 2) READ INPUT DATA ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # Read in example data from the umbrella package
     # demo.sdm:  an example species distribution model (SDM) where 1 = suitable habitat and 0 = not suitable habitat
