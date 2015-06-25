@@ -3,16 +3,15 @@
 \docType{data}
 \name{demo.sdm}
 \alias{demo.sdm}
-\title{demo.sdm
-An example species distribution model (SDM).
-The SDM is coded such that 1 = suitable habitat and 0 = not suitable habitat.}
+\title{demo.sdm}
 \format{Formal class RasterLayer}
 \usage{
 data(demo.sdm)
 }
 \description{
-demo.sdm
-An example species distribution model (SDM).
+An example species distribution model (SDM)
+}
+\details{
 The SDM is coded such that 1 = suitable habitat and 0 = not suitable habitat.
 }
 \author{

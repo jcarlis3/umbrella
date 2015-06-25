@@ -3,14 +3,12 @@
 \docType{data}
 \name{demo.msk}
 \alias{demo.msk}
-\title{demo.msk
-An example availability mask (i.e., the polygon within which simulated reserves can be placed).}
+\title{demo.msk}
 \format{Formal class SpatialPolygons}
 \usage{
 data(demo.msk)
 }
 \description{
-demo.msk
 An example availability mask (i.e., the polygon within which simulated reserves can be placed).
 }
 \author{

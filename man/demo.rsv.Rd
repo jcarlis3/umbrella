@@ -3,14 +3,12 @@
 \docType{data}
 \name{demo.rsv}
 \alias{demo.rsv}
-\title{demo.rsv
-An example reserve (e.g., a protected area created for an umbrella species).}
+\title{demo.rsv}
 \format{Formal class SpatialPolygons}
 \usage{
 data(demo.rsv)
 }
 \description{
-demo.rsv
 An example reserve (e.g., a protected area created for an umbrella species).
 }
 \author{
