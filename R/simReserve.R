@@ -28,23 +28,23 @@ simReserve <- function(target.poly, buff.width, total.area, wiggle){
   start.num <- trunc((total.area / (pi*(buff.width^2))) - 1)
 
   #Buffer inside target.poly so circles are contained and don't cross boundary
-  target.poly.trim <- rgeos:gBuffer(target.poly, width=-buff.width)
+  target.poly.trim <- rgeos::gBuffer(target.poly, width=-buff.width)
   #plot(demo.sdm); plot(target.poly, col="grey", add=TRUE)
   #plot(target.poly.trim, col="black", add=TRUE)
 
   # Create simulated protected area using randomly sited circles
   # Because some likely overlap, more than (start.num) will likely be needed
-  rand.poly <- sp:spsample(target.poly.trim, n=start.num, type="random", iter=1000)
-  rand.poly <- rgeos:gBuffer(rand.poly, width=buff.width)
+  rand.poly <- sp::spsample(target.poly.trim, n=start.num, type="random", iter=1000)
+  rand.poly <- rgeos::gBuffer(rand.poly, width=buff.width)
   #rgeos::gArea(rand.poly) / total.area #percent of needed area covered
   #plot(demo.sdm); plot(target.poly, col="grey", add=TRUE); plot(rand.poly, add=TRUE)
 
   # Append circles one at a time until total area exceeds target total.area
   repeat{
     # Add one more random circle polygon
-    p <- sp:spsample(target.poly.trim, n=1, type="random", iter=1000) # select 1 point
-    p <- rgeos:gBuffer(p, width=buff.width) # buffer that point
-    p <- sp:spChFIDs(obj=p, x="2") # change ID in order to have unique IDs for rbind
+    p <- sp::spsample(target.poly.trim, n=1, type="random", iter=1000) # select 1 point
+    p <- rgeos::gBuffer(p, width=buff.width) # buffer that point
+    p <- sp::spChFIDs(obj=p, x="2") # change ID in order to have unique IDs for rbind
     rand.poly <- rbind(rand.poly, p) # append to the polys we have
     rand.poly <- rgeos::gUnaryUnion(rand.poly) # dissolve
 
@@ -66,10 +66,10 @@ simReserve <- function(target.poly, buff.width, total.area, wiggle){
       rad <- sqrt((to.cut/pi))
 
       # Add one random polygon inside rand.poly (that won't reach outside rand.poly) to erase
-      temp <- rgeos:gBuffer(rand.poly, width=-rad)
+      temp <- rgeos::gBuffer(rand.poly, width=-rad)
       #plot(temp, add=TRUE)
-      x <- sp:spsample(temp, n=1, type="random", iter=1000) # select 1 point
-      x <- rgeos:gBuffer(x, width=rad) # buffer that point
+      x <- sp::spsample(temp, n=1, type="random", iter=1000) # select 1 point
+      x <- rgeos::gBuffer(x, width=rad) # buffer that point
 
       #plot(demo.dsm); plot(target.poly, col="grey", add=TRUE); plot(rand.poly, add=TRUE); plot(x, add=TRUE, col="red")
 
