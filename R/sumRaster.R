@@ -14,8 +14,12 @@
 #' @author Jason D. Carlisle, University of Wyoming, <jason.d.carlisle@@gmail.com>
 
 
-
 sumRaster <- function(rast, poly){
-  rmask <- mask(rast, poly) # this step takes the longest to process
-  return(cellStats(rmask, stat='sum', na.rm=TRUE)) # this step is much quicker
-  }
+  # Mask the raster down to the shape of the polygon
+  rmask <- raster::mask(rast, poly) # this step takes the longest to process
+
+  # Sum the remaining cells
+  rast.sum <- raster::cellStats(rmask, stat='sum', na.rm=TRUE) # this step is much quicker
+
+  return(rast.sum)
+}
