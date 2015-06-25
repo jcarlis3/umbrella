@@ -2,7 +2,7 @@
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
-# Last updated 6/24/2015
+# Last updated 6/25/2015
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -56,6 +56,10 @@ if("umbrella" %in% rownames(installed.packages()) == FALSE){
   devtools::install_github("jcarlis3/umbrella@master")
 }
 require(umbrella)
+require(sp)
+require(rgdal)
+require(rgeos)
+require(raster)
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -64,11 +68,6 @@ require(umbrella)
 # 2) READ INPUT DATA ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # Read in example data from the umbrella package
-?demo.sdm
-?demo.rsv
-?demo.msk
-
-
 data(demo.sdm)
 data(demo.rsv)
 data(demo.msk)
@@ -77,6 +76,11 @@ data(demo.msk)
 plot(demo.sdm)
 plot(demo.rsv, add=TRUE, lwd=2, col="orange")
 plot(demo.msk, add=TRUE, lwd=3)
+
+# View help documentations for example data
+?demo.sdm
+?demo.rsv
+?demo.msk
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -87,8 +91,10 @@ plot(demo.msk, add=TRUE, lwd=3)
 # Calculate the total number of suitable cells (coded as "1") in the SDM
 (suit.total <- raster::cellStats(demo.sdm, sum))
 
-# Calculate the number of suitable cells contained within the reserve
 # Issue ?sumRaster to view help documentation for custom sumRaster function
+?sumRaster
+
+# Calculate the number of suitable cells contained within the reserve using sumRaster
 (suit.protected <- umbrella::sumRaster(rast=demo.sdm, poly=demo.rsv))
 
 # Calculate the observed overlap statistic (the proportion of the suitable habitat contained within the reserve)
@@ -100,10 +106,11 @@ plot(demo.msk, add=TRUE, lwd=3)
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # 4) SIMULATE RESERVES AND PERFORM MONTE CARLO TEST ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# Create simulated reserves and calculate the overlap statistic for each
 # Issue ?simReserve to view help documentation for custom simReserve function
+?simReserve
 
-B <- 8  # number of reserves to create
+# Create simulated reserves using custom simReserve function, and calculate the overlap statistic for each
+B <- 80  # number of reserves to create
 overlap.expected <- rep(NA, B)  # an empty vector to store results in
 
 # Loop through B number of times, repeatedly simulating a reserve and calculating the overlap statistic
@@ -167,7 +174,7 @@ print(results.df)
     # the actual umbrella reserve performed worse than expected for that background species.
 
     # Regardless of the direction of the difference (diff),
-    # if the confidence interval for the difference (diff.upr and diff.lwr) overlaps zero,
+    # if the confidence interval for the difference (diff.lwr and diff.upr) overlaps zero,
     # the actual umbrella reserve performed as expected for that background species.
 
 # Note that your results will vary slightly with each run because of the random process that generates simulated reserves.
