@@ -2,7 +2,7 @@ Package: umbrella
 Type: Package
 Title: Evaluating Conservation Reserves
 Version: 0.1
-Date: 2015-06-17
+Date: 2015-06-25
 Authors@R:  as.person(c(
     "Jason D. Carlisle <jason.d.carlisle@gmail.com> [aut, cre]",
     "Shannon Albeke [ctb]",
