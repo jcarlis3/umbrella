@@ -110,7 +110,7 @@ plot(demo.msk, add=TRUE, lwd=3)
 ?simReserve
 
 # Create simulated reserves using custom simReserve function, and calculate the overlap statistic for each
-B <- 80  # number of reserves to create
+B <- 40  # number of reserves to create (note, a person should do more than B=40 iterations)
 overlap.expected <- rep(NA, B)  # an empty vector to store results in
 
 # Loop through B number of times, repeatedly simulating a reserve and calculating the overlap statistic
