@@ -9,16 +9,13 @@
 #' the simulated reserve overshot the specified area.  The user can specify a tolerance for how much bigger/smaller
 #' than the specified area is acceptable.
 #'
-#'
 #' @param target.poly A polygon within which all simulated reserves are to be contained.  The availability mask.
 #' @param buff.width The radius of the randomly sited circles to be used.
 #' @param total.area The target size of the simulated reserve.
 #' @param wiggle How much bigger/smaller can the simulated reserves be than \code{tota.area}
 #' (in same units as \code{tota.area})
 #'
-#'
 #' @return Object of class SpatialPolygons, the simulated reserve.
-#'
 #'
 #' @author Jason D. Carlisle, University of Wyoming, <jason.d.carlisle@@gmail.com>
 
