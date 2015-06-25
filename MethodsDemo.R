@@ -116,7 +116,7 @@ overlap.expected <- rep(NA, B)  # an empty vector to store results in
 # Loop through B number of times, repeatedly simulating a reserve and calculating the overlap statistic
 for(i in 1:B){
   # Create simulated reserve within demo.msk that mimics the size and configuration of the actual reserve (demo.rsv)
-  sim <- umbrella::simReserve(target.poly=demo.msk, buff.width=8, total.area=gArea(demo.rsv), wiggle=2)
+  sim <- umbrella::simReserve(target.poly=demo.msk, buff.width=8, total.area=rgeos::gArea(demo.rsv), wiggle=2)
 
   # Calculate the number of suitable cells contained within the simulated reserve
   sim.suit.protected <- umbrella::sumRaster(rast=demo.sdm, poly=sim)
