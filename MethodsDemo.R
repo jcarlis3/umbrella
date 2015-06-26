@@ -2,7 +2,7 @@
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
-# Last updated 6/25/2015
+# Last updated 6/26/2015
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -11,12 +11,11 @@
 # OUTLINE ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # This code is provided as a supplement to (citation) and demonstrates some of the methods used therein.
-# This script contains the following five sections:
+# This script contains the following four sections:
     # 1) INSTALL REQUIRED PACKAGES
-    # 2) READ INPUT DATA
-    # 3) CALCULATE OVERLAP STATISTIC
-    # 4) SIMULATE RESERVES AND PERFORM MONTE CARLO TEST
-    # 5) INTERPRET THE RESULTS
+    # 2) CALCULATE OVERLAP STATISTIC
+    # 3) SIMULATE RESERVES AND PERFORM MONTE CARLO TEST
+    # 4) INTERPRET THE RESULTS
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -60,24 +59,15 @@ require(sp)
 require(rgdal)
 require(rgeos)
 require(raster)
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
+# View help documentation for the umbrella package
+?umbrella
 
+# View help documentation for umbrella functions
+?sumRaster
+?simReserve
 
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# 2) READ INPUT DATA ----------
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# Read in example data from the umbrella package
-data(demo.sdm)
-data(demo.rsv)
-data(demo.msk)
-
-# Plot example data
-plot(demo.sdm)
-plot(demo.rsv, add=TRUE, lwd=2, col="orange")
-plot(demo.msk, add=TRUE, lwd=3)
-
-# View help documentations for example data
+# View help documentation for umbrella example datasets
 ?demo.sdm
 ?demo.rsv
 ?demo.msk
@@ -86,15 +76,23 @@ plot(demo.msk, add=TRUE, lwd=3)
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# 3) CALCULATE OVERLAP STATISTIC ----------
+# 2) CALCULATE OVERLAP STATISTIC ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
+# QUESTION:  What proportion of a species' suitable habitat is protected by the reserve (i.e., the overlap statistic)?
+
+# Read in and plot the example species distribution model (SDM)
+    # Green cells are suitable habitat, grey cells are not suitable habitat
+data(demo.sdm)
+plot(demo.sdm)
+
+# Read in and plot the example reserve (red polygon)
+data(demo.rsv)
+plot(demo.rsv, add=TRUE, border="red", lwd=6)
+
 # Calculate the total number of suitable cells (coded as "1") in the SDM
 (suit.total <- raster::cellStats(demo.sdm, sum))
 
-# Issue ?sumRaster to view help documentation for custom sumRaster function
-?sumRaster
-
-# Calculate the number of suitable cells contained within the reserve using sumRaster
+# Calculate the number of suitable cells contained within the reserve using the sumRaster function
 (suit.protected <- umbrella::sumRaster(rast=demo.sdm, poly=demo.rsv))
 
 # Calculate the observed overlap statistic (the proportion of the suitable habitat contained within the reserve)
@@ -104,19 +102,23 @@ plot(demo.msk, add=TRUE, lwd=3)
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# 4) SIMULATE RESERVES AND PERFORM MONTE CARLO TEST ----------
+# 3) SIMULATE RESERVES AND PERFORM MONTE CARLO TEST ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# Issue ?simReserve to view help documentation for custom simReserve function
-?simReserve
+# QUESTION:  How does the observed overlap compare to what you'd expect given a reserve of that size?
 
-# Create simulated reserves using custom simReserve function, and calculate the overlap statistic for each
+# Read in and plot the example mask of availability (black polygon)
+data(demo.msk)
+plot(demo.msk, add=TRUE, border="black", lwd=6)
+
+# Loop through B number of times, repeatedly creating a simulated reserve within the specified mask of availability
+    # using the simReserve function, and calculate the overlap statistic for each.
 B <- 40  # number of reserves to create (note, a person should do more than B=40 iterations)
-overlap.expected <- rep(NA, B)  # an empty vector to store results in
+overlap.expected <- rep(NA, B)  # empty vector to store results in
+rsv.area <- rgeos::gArea(demo.rsv)  # size of the actual reserve, to match with simulated reserves
 
-# Loop through B number of times, repeatedly simulating a reserve and calculating the overlap statistic
 for(i in 1:B){
   # Create simulated reserve within demo.msk that mimics the size and configuration of the actual reserve (demo.rsv)
-  sim <- umbrella::simReserve(target.poly=demo.msk, buff.width=8, total.area=rgeos::gArea(demo.rsv), wiggle=2)
+  sim <- umbrella::simReserve(target.poly=demo.msk, buff.width=15, total.area=rsv.area, wiggle=2)
 
   # Calculate the number of suitable cells contained within the simulated reserve
   sim.suit.protected <- umbrella::sumRaster(rast=demo.sdm, poly=sim)
@@ -125,60 +127,52 @@ for(i in 1:B){
   overlap.expected[i] <- sim.suit.protected / suit.total
 }
 
-# Plot the last simulated reserve (yellow) as an example
-plot(demo.sdm)
-plot(demo.rsv, add=TRUE, lwd=2, col="orange")
-plot(demo.msk, add=TRUE, lwd=3)
-plot(sim, add=TRUE, lwd=2, col="yellow")
-
+# Plot the last simulated reserve for illustration (yellow polygon)
+plot(sim, add=TRUE, col="yellow")
 
 # Plot null model of the overlap statistic (histogram of expected overlap)
-hist(overlap.expected, breaks=15, col="grey", main="Histogram of Expected Overlap\n(Null Model)", xlab="Overlap")
+hist(overlap.expected, col="grey", main="Histogram of Expected Overlap\n(Null Model)", xlab="Overlap")
 
-# Expected overlap
+# Calculate and plot expected overlap (solid black line)
 (exp.mean <- mean(overlap.expected))
+abline(v=exp.mean, lwd=3)
 
-# Two-tailed 95% Monte Carlo confidence interval for expected overlap
+# Calculate and plot two-tailed 95% Monte Carlo confidence interval for expected overlap (dashed black lines)
 (exp.lwr <- quantile(overlap.expected, 0.025)[[1]])
 (exp.upr <- quantile(overlap.expected, 0.975)[[1]])
-
-# View expected overlap (solid black line) and CI (dashed lines) on plot
-abline(v=exp.mean, lwd=3)
 abline(v=exp.lwr, lwd=2, lty="dashed")
 abline(v=exp.upr, lwd=2, lty="dashed")
 
-# View observed overlap (solid blue line) on plot
+# Plot observed overlap calculated previously (solid blue line)
 abline(v=overlap.observed, lwd=3, col="blue")
 
-# Calculate the difference between observed and expected overlap (with 95% Monte Carlo CI)
-(diff <- round((overlap.observed - exp.mean), 4))
-(diff.upr <- round((overlap.observed - exp.lwr), 4))
-(diff.lwr <- round((overlap.observed - exp.upr), 4))
-
-# Store the results
-(results.df <- data.frame(Species="demo.sdm", diff, diff.lwr, diff.upr))
+# Calculate the difference between observed and expected overlap (with 95% Monte Carlo CI) and store results
+results.df <- data.frame(Species="demo.sdm",
+                         Diff=round((overlap.observed - exp.mean), 4),
+                         Diff.CI.lwr=round((overlap.observed - exp.lwr), 4),
+                         Diff.CI.upr=round((overlap.observed - exp.upr), 4))
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# 5) INTERPRET THE RESULTS ----------
+# 4) INTERPRET THE RESULTS ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # Print results
 print(results.df)
 
-    # If the difference between observed and expected overlap statistics (diff) is positive,
+    # If the difference between observed and expected overlap statistics (Diff) is positive,
     # the actual umbrella reserve performed better than expected for that background species.
 
-    # If the difference (diff) is negative,
+    # If the difference (Diff) is negative,
     # the actual umbrella reserve performed worse than expected for that background species.
 
-    # Regardless of the direction of the difference (diff),
-    # if the confidence interval for the difference (diff.lwr and diff.upr) overlaps zero,
+    # Regardless of the direction of the difference (Diff),
+    # if the confidence interval for the difference (Diff.CI.lwr and Diff.CI.upr) overlaps zero,
     # the actual umbrella reserve performed as expected for that background species.
 
 # Note that your results will vary slightly with each run because of the random process that generates simulated reserves.
-# You could write simulated reserves to disk (e.g., as an ESRI shapefile with rgdal::writeOGR) to overcome this problem.
+# You could write simulated reserves to disk (e.g., as an ESRI shapefile with rgdal::writeOGR) to overcome this issue.
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
