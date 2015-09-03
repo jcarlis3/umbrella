@@ -1,7 +1,7 @@
 .onAttach <- function(libname, pkgname){
 
   # Manually update the version number
-  v <- "0.1"
+  v <- "0.1.0"
 
   # Startup message
   packageStartupMessage(paste("umbrella (version ", v ,")", sep=""))

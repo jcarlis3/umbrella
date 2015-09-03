@@ -3,6 +3,12 @@
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
 # Last updated 9/3/2015
+
+# This demo was tested using the following:
+    # Windows 8.1 Pro - 64 bit
+    # R version 3.2.2
+    # RStudio version 0.99.482
+    # The R package versions indicated below
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -23,8 +29,6 @@
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # 1) INSTALL REQUIRED PACKAGES ----------
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# This demo was tested using R version 3.2.1, the R package versions indicated below, and Windows 8.1 Pro.
-
 # This demo makes us of a custom R package called "umbrella" created by Jason Carlisle.  This demo will use three
     # datasets (demo.sdm, demo.rsv, and demo.msk) and two functions (sumRaster and simReserve) from the umbrella package.
     # All functions and datasets from umbrella have help documentation associated with them.
@@ -32,12 +36,12 @@
 
 # As of publication, the umbrella package is not on CRAN, but can be installed from a GitHub repository, which will
     # require using the devtools package.  The umbrella package may be further developed after publication, but this demo
-    # is current and compatible with umbrella version 0.1.
+    # is current and compatible with umbrella version 0.1.0.
 
 # Check if devtools is installed.  If yes, load it.  If not, install it from CRAN, then load it.
 # Note, ignore any warning message about Rtools; Rtools is not needed for this demo.
 # This demo was tested using the following package versions:
-    # devtools version 1.8-0
+    # devtools version 1.8.0
 if("devtools" %in% rownames(installed.packages()) == FALSE){
   install.packages("devtools")
 }
@@ -46,11 +50,11 @@ require(devtools)
 # Check if umbrella is installed.  If yes, load it.  If not, install it from GitHub using devtools, then load it.
 # umbrella depends on the sp, rgdal, rgeos, and raster packages, and these will also be installed if not already.
 # This demo was tested using the following package versions:
-    # umbrella version 0.1
+    # umbrella version 0.1.0
     # sp       version 1.1-1
-    # rgdal    version 1.0-4
-    # rgeos    version 0.3-11
-    # raster   version 2.3-40
+    # rgdal    version 1.0-6
+    # rgeos    version 0.3-12
+    # raster   version 2.4-18
 if("umbrella" %in% rownames(installed.packages()) == FALSE){
   devtools::install_github("jcarlis3/umbrella@master")
 }
