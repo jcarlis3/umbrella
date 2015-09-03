@@ -2,7 +2,7 @@
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
-# Last updated 6/26/2015
+# Last updated 9/3/2015
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -149,8 +149,8 @@ abline(v=overlap.observed, lwd=3, col="blue")
 # Calculate the difference between observed and expected overlap (with 95% Monte Carlo CI) and store results
 results.df <- data.frame(Species="demo.sdm",
                          Diff=round((overlap.observed - exp.mean), 4),
-                         Diff.CI.lwr=round((overlap.observed - exp.lwr), 4),
-                         Diff.CI.upr=round((overlap.observed - exp.upr), 4))
+                         Diff.CI.lwr=round((overlap.observed - exp.upr), 4),
+                         Diff.CI.upr=round((overlap.observed - exp.lwr), 4))
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
 
@@ -162,14 +162,14 @@ results.df <- data.frame(Species="demo.sdm",
 print(results.df)
 
     # If the difference between observed and expected overlap statistics (Diff) is positive,
-    # the actual umbrella reserve performed better than expected for that background species.
+    # the actual umbrella reserve performed better than expected for that species.
 
     # If the difference (Diff) is negative,
-    # the actual umbrella reserve performed worse than expected for that background species.
+    # the actual umbrella reserve performed worse than expected for that species.
 
     # Regardless of the direction of the difference (Diff),
     # if the confidence interval for the difference (Diff.CI.lwr and Diff.CI.upr) overlaps zero,
-    # the actual umbrella reserve performed as expected for that background species.
+    # the actual umbrella reserve performed as expected for that species.
 
 # Note that your results will vary slightly with each run because of the random process that generates simulated reserves.
 # You could write simulated reserves to disk (e.g., as an ESRI shapefile with rgdal::writeOGR) to overcome this issue.
