@@ -1,12 +1,12 @@
 Package: umbrella
 Type: Package
 Title: Evaluating Conservation Reserves
-Version: 0.1
-Date: 2015-06-25
+Version: 0.1.0
+Date: 2015-09-03
 Authors@R:  as.person(c(
     "Jason D. Carlisle <jason.d.carlisle@gmail.com> [aut, cre]",
-    "Shannon Albeke [ctb]",
-    "Douglas Keinath [ctb]"
+    "Shannon E. Albeke [ctb]",
+    "Douglas A. Keinath [ctb]"
     ))
 Maintainer: Jason D. Carlisle <jason.d.carlisle@gmail.com>
 Description: Utilites for evaulating the effectiveness of conservation reserves,

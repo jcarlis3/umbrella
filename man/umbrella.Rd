@@ -10,7 +10,7 @@ This package contains functions that aid in evaluating the performance of a cons
 suitable habitat of species of conservation interest.
 }
 \details{
-\bold{version 0.1}:  Contains two functions (\code{sumRaster} and \code{simReserve}) and three example
+\bold{version 0.1.0}:  Contains two functions (\code{sumRaster} and \code{simReserve}) and three example
 datasets (\code{demo.sdm}, \code{demo.rsv}, and \code{demo.msk}).  Demo of package submitted as supplement to
 published manuscript.
 
