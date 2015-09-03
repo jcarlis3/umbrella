@@ -115,10 +115,12 @@ data(demo.msk)
 plot(demo.msk, add=TRUE, border="black", lwd=6)
 
 # Loop through B number of times, repeatedly creating a simulated reserve within the specified mask of availability
-    # using the simReserve function, and calculate the overlap statistic for each.
+    # using the simReserve function, and calculate the overlap statistic for each.  Print a progress bar in the console
+    # that will update you on the status of the loop.
 B <- 40  # number of reserves to create (note, a person should do more than B=40 iterations)
 overlap.expected <- rep(NA, B)  # empty vector to store results in
 rsv.area <- rgeos::gArea(demo.rsv)  # size of the actual reserve, to match with simulated reserves
+pb <- txtProgressBar(min=1, max=B, style=3)  # initiate progress bar
 
 for(i in 1:B){
   # Create simulated reserve within demo.msk that mimics the size and configuration of the actual reserve (demo.rsv)
@@ -129,7 +131,10 @@ for(i in 1:B){
 
   # Calculate the overlap statistic for the simulated reserve
   overlap.expected[i] <- sim.suit.protected / suit.total
+  
+  setTxtProgressBar(pb, i)  # update progress bar
 }
+close(pb)  # close progress bar
 
 # Plot the last simulated reserve for illustration (yellow polygon)
 plot(sim, add=TRUE, col="yellow")
