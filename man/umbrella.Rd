@@ -6,8 +6,9 @@
 \alias{umbrella-package}
 \title{umbrella:  Evaluating Conservation Reserves}
 \description{
-This package contains functions that aid in evaluating the performance of a conservation reserve in protecting the
-suitable habitat of species of conservation interest.
+This package contains functions (and example data) that aid in evaluating the performance of a conservation reserve in
+protecting the suitable habitat of species of conservation interest.  This package was designed specifically to assess
+conservation reserves created for an umbrella species--hence the name.
 }
 \details{
 \bold{version 0.1.0}:  Contains two functions (\code{sumRaster} and \code{simReserve}) and three example

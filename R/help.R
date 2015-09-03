@@ -1,9 +1,11 @@
 # This document includes the help documentation for non-functions (i.e., the package itself and the example datasets).
-# The following code is interpreted by roxygen2 into separate .Rd files:
+# The following code is interpreted by roxygen2 into separate .Rd files, so be sure to run devtools::document after making
+# any changes here, in order for those changes to appear in the .Rd files.
 
 
-#' This package contains functions that aid in evaluating the performance of a conservation reserve in protecting the
-#' suitable habitat of species of conservation interest.
+#' This package contains functions (and example data) that aid in evaluating the performance of a conservation reserve in
+#' protecting the suitable habitat of species of conservation interest.  This package was designed specifically to assess
+#' conservation reserves created for an umbrella species--hence the name.
 #'
 #' \bold{version 0.1.0}:  Contains two functions (\code{sumRaster} and \code{simReserve}) and three example
 #' datasets (\code{demo.sdm}, \code{demo.rsv}, and \code{demo.msk}).  Demo of package submitted as supplement to
