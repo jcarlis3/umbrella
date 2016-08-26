@@ -2,12 +2,12 @@
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
-# Last updated 11/2/2015
+# Last updated 8/26/2016
 
 # This demo was tested using the following:
     # Windows 8.1 Pro - 64 bit
-    # R version 3.2.2
-    # RStudio version 0.99.482
+    # R version 3.3.1
+    # RStudio version 0.99.903
     # The R package versions indicated below
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
@@ -41,7 +41,7 @@
 # Check if devtools is installed.  If yes, load it.  If not, install it from CRAN, then load it.
 # Note, ignore any warning message about Rtools; Rtools is not needed for this demo.
 # This demo was tested using the following package versions:
-    # devtools version 1.9.1
+    # devtools version 1.11.1
 if("devtools" %in% rownames(installed.packages()) == FALSE){
   install.packages("devtools")
 }
@@ -51,10 +51,10 @@ require(devtools)
 # umbrella depends on the sp, rgdal, rgeos, and raster packages, and these will also be installed if not already.
 # This demo was tested using the following package versions:
     # umbrella version 0.1.0
-    # sp       version 1.2-1
-    # rgdal    version 1.0-7
-    # rgeos    version 0.3-14
-    # raster   version 2.4-20
+    # sp       version 1.2-3
+    # rgdal    version 1.1-10
+    # rgeos    version 0.3-19
+    # raster   version 2.5-8
 if("umbrella" %in% rownames(installed.packages()) == FALSE){
   devtools::install_github("jcarlis3/umbrella@master")
 }
