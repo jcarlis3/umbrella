@@ -3,6 +3,6 @@ This package contains functions (and example data) that aid in evaluating the pe
 
 **version 0.1.0**: Contains two functions (`sumRaster` and `simReserve`) and three example datasets (`demo.sdm`, `demo.rsv`, and `demo.msk`).
 
-**Tutorial**: See `UmbrellaMethodsDemo.R` in the top-level directory for a tutorial use of the package including example data.  This file was supplied as a supplement to a Carlisle et al. manuscript currently in review.
+**Tutorial**: See [UmbrellaMethodsDemo.R](https://github.com/jcarlis3/umbrella/blob/master/UmbrellaMethodsDemo.R) in the top-level directory for a tutorial use of the package including example data.  This file was supplied as a supplement to a Carlisle et al. manuscript currently in review.
 
 **Bugs**: Bug reports or suggestions for the `umbrella` package should be directed to <jason.d.carlisle@gmail.com>.
