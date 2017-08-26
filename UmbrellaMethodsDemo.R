@@ -2,12 +2,12 @@
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
 # jason.d.carlisle@gmail.com
-# Last updated 8/26/2016
+# Last updated 8/26/2017
 
 # This demo was tested using the following:
-    # Windows 8.1 Pro - 64 bit
-    # R version 3.3.1
-    # RStudio version 0.99.903
+    # Windows 10 Pro - 64 bit
+    # R version 3.4.1
+    # RStudio version 1.0.143
     # The R package versions indicated below
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
@@ -43,7 +43,7 @@
 # Check if devtools is installed.  If yes, load it.  If not, install it from CRAN, then load it.
 # Note, ignore any warning message about Rtools; Rtools is not needed for this demo.
 # This demo was tested using the following package versions:
-    # devtools version 1.11.1
+    # devtools version 1.13.2
 if("devtools" %in% rownames(installed.packages()) == FALSE){
   install.packages("devtools")
 }
@@ -53,9 +53,9 @@ require(devtools)
 # umbrella depends on the sp, rgdal, rgeos, and raster packages, and these will also be installed if not already.
 # This demo was tested using the following package versions:
     # umbrella version 0.1.0
-    # sp       version 1.2-3
-    # rgdal    version 1.1-10
-    # rgeos    version 0.3-19
+    # sp       version 1.2-5
+    # rgdal    version 1.2-8
+    # rgeos    version 0.3-23
     # raster   version 2.5-8
 if("umbrella" %in% rownames(installed.packages()) == FALSE){
   devtools::install_github("jcarlis3/umbrella@master")
@@ -122,8 +122,8 @@ plot(demo.msk, add=TRUE, border="black", lwd=6)
 B <- 40  # number of reserves to create (note, a person should do more than B=40 iterations)
 overlap.expected <- rep(NA, B)  # empty vector to store results in
 rsv.area <- rgeos::gArea(demo.rsv)  # size of the actual reserve, to match with simulated reserves
-pb <- txtProgressBar(min=1, max=B, style=3)  # initiate progress bar
 
+pb <- txtProgressBar(min=1, max=B, style=3)  # initiate progress bar
 for(i in 1:B){
   # Create simulated reserve within demo.msk that mimics the size and configuration of the actual reserve (demo.rsv)
   sim <- umbrella::simReserve(target.poly=demo.msk, buff.width=15, total.area=rsv.area, wiggle=10)
