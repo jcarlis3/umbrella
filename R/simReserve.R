@@ -7,7 +7,8 @@
 #' The reserve is built by randomly siting circular polygons of the specified size.  The polygons are allowed to overlap.
 #' Circles are iteratively added until the specified area is reached, then a smaller circle is trimmed out if
 #' the simulated reserve overshot the specified area.  The user can specify a tolerance for how much bigger/smaller
-#' than the specified area is acceptable.
+#' than the specified area is acceptable.  This function has been further developed in the ecoinfo package, contact
+#' the author for details.
 #'
 #' @param target.poly A polygon within which all simulated reserves are to be contained.  The availability mask.
 #' @param buff.width The radius of the randomly sited circles to be used.
