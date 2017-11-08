@@ -16,7 +16,7 @@
 
 sumRaster <- function(rast, poly){
   # Mask the raster down to the shape of the polygon
-  rmask <- raster::mask(rast, poly) # this step takes the longest to process
+  rmask <- raster::mask(crop(rast, extent(poly)), poly) # subsets to extent of poly and speeds up mask
 
   # Sum the remaining cells
   rast.sum <- raster::cellStats(rmask, stat='sum', na.rm=TRUE) # this step is much quicker
