@@ -13,8 +13,8 @@ simReserve(target.poly, buff.width, total.area, wiggle)
 
 \item{total.area}{The target size of the simulated reserve.}
 
-\item{wiggle}{How much bigger/smaller can the simulated reserves be than \code{tota.area}
-(in same units as \code{tota.area})}
+\item{wiggle}{How much bigger/smaller can the simulated reserves be than \code{total.area}
+(in same units as \code{total.area})}
 }
 \value{
 Object of class SpatialPolygons, the simulated reserve.

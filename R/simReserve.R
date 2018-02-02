@@ -13,8 +13,8 @@
 #' @param target.poly A polygon within which all simulated reserves are to be contained.  The availability mask.
 #' @param buff.width The radius of the randomly sited circles to be used.
 #' @param total.area The target size of the simulated reserve.
-#' @param wiggle How much bigger/smaller can the simulated reserves be than \code{tota.area}
-#' (in same units as \code{tota.area})
+#' @param wiggle How much bigger/smaller can the simulated reserves be than \code{total.area}
+#' (in same units as \code{total.area})
 #'
 #' @return Object of class SpatialPolygons, the simulated reserve.
 #'

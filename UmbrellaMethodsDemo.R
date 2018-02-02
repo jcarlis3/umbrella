@@ -1,13 +1,14 @@
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
-# jason.d.carlisle@gmail.com
-# Last updated 8/26/2017
+# Western EcoSystems Technology, Inc.
+# jcarlisle@west-inc.com
+# Last updated 2/2/2018
 
 # This demo was tested using the following:
     # Windows 10 Pro - 64 bit
-    # R version 3.4.1
-    # RStudio version 1.0.143
+    # R version 3.4.3
+    # RStudio version 1.1.383
     # The R package versions indicated below
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 
@@ -16,7 +17,7 @@
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # OUTLINE ----------
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
-# This code is provided as a supplement to (citation) and demonstrates some of the methods used therein.
+# This code is provided as a supplement to (Carlisle et al. 2018) and demonstrates some of the methods used therein.
 # This script contains the following four sections:
     # 1) INSTALL REQUIRED PACKAGES
     # 2) CALCULATE OVERLAP STATISTIC
@@ -34,7 +35,7 @@
     # https://github.com/jcarlis3/umbrella
     # This demo will use three datasets (demo.sdm, demo.rsv, and demo.msk) and two functions (sumRaster and simReserve)
     # from the umbrella package.  All functions and datasets from umbrella have help documentation associated with them.
-    # Bug reports or suggestions for the umbrella package should be directed to <jason.d.carlisle@gmail.com>.
+    # Bug reports or suggestions for the umbrella package should be directed to <jcarlisle@west-inc.com>.
 
 # As of publication, the umbrella package is not on CRAN, but can be installed from a GitHub repository, which will
     # require using the devtools package.  The umbrella package may be further developed after publication, but this demo
@@ -43,7 +44,7 @@
 # Check if devtools is installed.  If yes, load it.  If not, install it from CRAN, then load it.
 # Note, ignore any warning message about Rtools; Rtools is not needed for this demo.
 # This demo was tested using the following package versions:
-    # devtools version 1.13.2
+    # devtools version 1.13.4
 if("devtools" %in% rownames(installed.packages()) == FALSE){
   install.packages("devtools")
 }
@@ -53,10 +54,10 @@ require(devtools)
 # umbrella depends on the sp, rgdal, rgeos, and raster packages, and these will also be installed if not already.
 # This demo was tested using the following package versions:
     # umbrella version 0.1.0
-    # sp       version 1.2-5
-    # rgdal    version 1.2-8
-    # rgeos    version 0.3-23
-    # raster   version 2.5-8
+    # sp       version 1.2-7
+    # rgdal    version 1.2-16
+    # rgeos    version 0.3-26
+    # raster   version 2.6-7
 if("umbrella" %in% rownames(installed.packages()) == FALSE){
   devtools::install_github("jcarlis3/umbrella@master")
 }
@@ -91,9 +92,9 @@ require(raster)
 data(demo.sdm)
 plot(demo.sdm)
 
-# Read in and plot the example reserve (red polygon)
+# Read in and plot the example reserve (blue polygon)
 data(demo.rsv)
-plot(demo.rsv, add=TRUE, border="red", lwd=6)
+plot(demo.rsv, add=TRUE, border="blue", lwd=6)
 
 # Calculate the total number of suitable cells (coded as "1") in the SDM
 (suit.total <- raster::cellStats(demo.sdm, sum))
@@ -121,7 +122,7 @@ plot(demo.msk, add=TRUE, border="black", lwd=6)
     # that will update you on the status of the loop.
 B <- 40  # number of reserves to create (note, a person should do more than B=40 iterations)
 overlap.expected <- rep(NA, B)  # empty vector to store results in
-rsv.area <- rgeos::gArea(demo.rsv)  # size of the actual reserve, to match with simulated reserves
+rsv.area <- rgeos::gArea(demo.rsv)  # store size of the actual reserve, to make simulated reserves the same size
 
 pb <- txtProgressBar(min=1, max=B, style=3)  # initiate progress bar
 for(i in 1:B){
