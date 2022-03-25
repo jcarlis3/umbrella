@@ -1,8 +1,6 @@
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////#
 # Jason D. Carlisle
 # Wyoming Cooperative Fish & Wildlife Research Unit, University of Wyoming
-# Western EcoSystems Technology, Inc.
-# jcarlisle@west-inc.com
 # Last updated 2/2/2018
 
 # This demo was tested using the following:
@@ -35,7 +33,6 @@
     # https://github.com/jcarlis3/umbrella
     # This demo will use three datasets (demo.sdm, demo.rsv, and demo.msk) and two functions (sumRaster and simReserve)
     # from the umbrella package.  All functions and datasets from umbrella have help documentation associated with them.
-    # Bug reports or suggestions for the umbrella package should be directed to <jcarlisle@west-inc.com>.
 
 # As of publication, the umbrella package is not on CRAN, but can be installed from a GitHub repository, which will
     # require using the devtools package.  The umbrella package may be further developed after publication, but this demo
